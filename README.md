@@ -2,6 +2,7 @@
 
 This project demonstrates how to use **React Portals** together with **styled-components** to create a modal dialog that renders outside the main React app hierarchy.
 
+![image](https://github.com/user-attachments/assets/335a75fe-8de3-4df4-b5b5-2fd40df9faec)
 ---
 
 ## Getting Started
