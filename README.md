@@ -1,18 +1,76 @@
-# react-portals-styled-component
+# React Portals Styled Component
 
-Using React Portals with styled components is quite straightforward. You can create a styled modal component and render it using React Portals to ensure it appears in a specific part of the DOM, detached from its parent hierarchy.
+This project demonstrates how to use **React Portals** together with **styled-components** to create a modal dialog that renders outside the main React app hierarchy.
 
-Here's an example of creating a styled modal using styled components and rendering it with React Portals:
+---
 
-First, install the necessary dependencies:
+## Getting Started
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### Prerequisites
+
+- Node.js (v14 or higher recommended)
+- npm
+
+### Installation
+
+```bash
+npm install
+```
+
+### Running the App
+
+```bash
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+---
+
+## Using styled-components
+
+This project uses [styled-components](https://styled-components.com/) for styling React components.
+
+To add `styled-components` to your project, run:
 
 ```bash
 npm install styled-components
 ```
 
-Now, let's create a `Modal` component using styled-components and React Portals:
+You can then import and use it in your components:
 
-```javascript
+```js
+import styled from 'styled-components';
+
+const Button = styled.button`
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+`;
+```
+
+---
+
+## Using React Portals for Modals
+
+The modal is rendered using React Portals. Make sure your `public/index.html` contains:
+
+```html
+<div id="root"></div>
+<div id="modal-root"></div>
+```
+
+---
+
+## Example Modal Component
+
+The `Modal` component is located in `src/components/Modal.js`:
+
+```js
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
@@ -28,15 +86,13 @@ const ModalWrapper = styled.div`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 `;
 
-const modalRoot = document.getElementById('modal-root');
-
 const Modal = ({ children, onClose }) => {
   const el = document.createElement('div');
 
   useEffect(() => {
+    const modalRoot = document.getElementById('modal-root');
+    if (!modalRoot) return;
     modalRoot.appendChild(el);
-
-    // Cleanup function to remove the modal when unmounting
     return () => {
       modalRoot.removeChild(el);
     };
@@ -54,17 +110,18 @@ const Modal = ({ children, onClose }) => {
 export default Modal;
 ```
 
-In this example:
+**Note:**  
+The `modalRoot` lookup is now inside the `useEffect` hook to ensure it works correctly in both browser and test environments.
 
-- `ModalWrapper` is a styled component that represents the modal's appearance.
-- Inside the `Modal` component, an element `el` is created using `document.createElement('div')`. This element will be the target for the React Portal.
-- The `useEffect` hook is used to append the `el` to the `modalRoot` when the component mounts and remove it when the component unmounts. This ensures the modal's element is properly attached and detached from the DOM.
+---
 
-Now, let's use this `Modal` component in another part of your application:
+## Example Usage
 
-```javascript
+The `App` component demonstrates how to use the modal:
+
+```js
 import React, { useState } from 'react';
-import Modal from './Modal';
+import Modal from './components/Modal';
 
 const App = () => {
   const [showModal, setShowModal] = useState(false);
@@ -90,9 +147,29 @@ const App = () => {
 export default App;
 ```
 
-In this example:
+---
 
-- The `App` component maintains the state (`showModal`) and a function (`toggleModal`) to control the visibility of the modal.
-- When the `showModal` state is `true`, the `Modal` component is rendered with some content (in this case, a title and a paragraph). The `onClose` prop passed to `Modal` is a function to close the modal when the "Close Modal" button is clicked.
+## Running Tests
 
-This setup demonstrates how you can create a styled modal component using styled-components and render it using React Portals, ensuring it appears at a specific part of the DOM detached from its parent components. Adjust the styles and content inside the `ModalWrapper` to fit your requirements.
+This project uses [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) and [Jest](https://jestjs.io/) for unit testing.  
+The Modal and App tests ensure correct portal rendering and modal behavior.
+
+To run tests:
+
+```bash
+npm test
+```
+
+---
+
+## Learn More
+
+- [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+- [React documentation](https://reactjs.org/)
+- [styled-components documentation](https://styled-components.com/)
+
+---
+
+## License
+
+This project is licensed under the MIT License.
