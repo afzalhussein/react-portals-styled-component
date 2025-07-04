@@ -1,7 +1,20 @@
 {
   "name": "react-portals-styled-component",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A reusable React Modal component using portals and styled-components.",
+  "main": "src/index.js",
+  "keywords": [
+    "react",
+    "modal",
+    "portal",
+    "styled-components"
+  ],
+  "author": "Syed Hussain <afzal@softsifre.ca>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/afzalhusein/react-portals-styled-component.git"
+  },
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -39,5 +52,13 @@
   },
   "devDependencies": {
     "eslint-config-react-app": "^7.0.1"
-  }
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
+    "styled-components": ">=5.0.0"
+  },
+  "publishConfig": {
+  "@afzalhussain:registry": "https://npm.pkg.github.com"
+}
 }
